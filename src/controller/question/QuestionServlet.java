@@ -26,15 +26,15 @@ public class QuestionServlet extends HttpServlet {
 
         RequestDispatcher rd;
         String page = request.getParameter("page");
-        if(page==null){
-            page="DDD";
+        if (page == null) {
+            page = "DDD";
         }
-        if(!page.equalsIgnoreCase("login")){
+        if (!page.equalsIgnoreCase("login")) {
             System.out.println("We are here");
-            HttpSession session=request.getSession(false);
-            User user= (User) session.getAttribute("user");
+            HttpSession session = request.getSession(false);
+            User user = (User) session.getAttribute("user");
             System.out.println(user);
-            if(user==null){
+            if (user == null) {
                 System.out.println("user is null");
                 response.sendRedirect("index.jsp");
                 return;
@@ -46,10 +46,10 @@ public class QuestionServlet extends HttpServlet {
         if (page.equalsIgnoreCase("questionList")) {
 
             List<Question> wholeQuestion = new QuestionService().getQuestionList();
-            String ok= request.getParameter("ok");
+            String ok = request.getParameter("ok");
             System.out.println("this is ok " + ok);
-            if (ok!=null){
-                request.setAttribute("ok",ok);
+            if (ok != null) {
+                request.setAttribute("ok", ok);
             }
             request.setAttribute("questionList", wholeQuestion);
 
@@ -69,26 +69,25 @@ public class QuestionServlet extends HttpServlet {
             int id = Integer.valueOf(request.getParameter("id"));
             String userAnswer = request.getParameter("answer");
             String correctAnswer = new QuestionService().getSingleQuestion(id).getCorrect();
-            PrintWriter out=response.getWriter();
+            PrintWriter out = response.getWriter();
             int ok;
 
-            if(userAnswer.equals(correctAnswer)){
+            if (userAnswer.equals(correctAnswer)) {
                 System.out.println("correct answer");
-                ok=1;
+                ok = 1;
 
-            }
-            else{
+            } else {
                 System.out.println("incorrect asnwer");
-                ok=0;
+                ok = 0;
 
             }
             System.out.println("ok value here is " + ok);
-            request.setAttribute("ok",ok);
-            request.setAttribute("id",id);
-            rd=request.getRequestDispatcher("viewQuestion?page=viewQuestion");
+            request.setAttribute("ok", ok);
+            request.setAttribute("id", id);
+            rd = request.getRequestDispatcher("viewQuestion?page=viewQuestion");
 //            rd=request.getRequestDispatcher("questionList?page=questionList");
 
-            rd.forward(request,response);
+            rd.forward(request, response);
 
         } else if (page.equalsIgnoreCase("viewQuestion")) {
             int id = Integer.valueOf(request.getParameter("id"));
@@ -111,21 +110,20 @@ public class QuestionServlet extends HttpServlet {
             int id = Integer.valueOf(request.getParameter("id"));
             Question question = new QuestionService().getSingleQuestion(id);
 
-            String correctAnswer=question.getCorrect();
-            int correctIndex=0;
-            if (correctAnswer.equals(question.getAnswer1())){
-                correctIndex=1;
+            String correctAnswer = question.getCorrect();
+            int correctIndex = 0;
+            if (correctAnswer.equals(question.getAnswer1())) {
+                correctIndex = 1;
+            } else if (correctAnswer.equals(question.getAnswer2())) {
+                correctIndex = 2;
             }
-            else if (correctAnswer.equals(question.getAnswer2())){
-                correctIndex=2;
+            if (correctAnswer.equals(question.getAnswer3())) {
+                correctIndex = 3;
             }
-            if (correctAnswer.equals(question.getAnswer3())){
-                correctIndex=3;
+            if (correctAnswer.equals(question.getAnswer4())) {
+                correctIndex = 4;
             }
-            if (correctAnswer.equals(question.getAnswer4())){
-                correctIndex=4;
-            }
-            request.setAttribute("correctIndex",correctIndex);
+            request.setAttribute("correctIndex", correctIndex);
 
 
             request.setAttribute("question", question);
@@ -141,6 +139,12 @@ public class QuestionServlet extends HttpServlet {
             String answer3 = request.getParameter("answer3");
             String answer4 = request.getParameter("answer4");
             String correct = request.getParameter("correct");
+            if (title.equals("") || category.equals("") || answer1.equals("") || answer2.equals("") || answer3.equals("") ||
+                    answer4.equals("") || correct.equals("")) {
+                rd = request.getRequestDispatcher("questionList?page=questionList");
+                rd.forward(request, response);
+                return;
+            }
             System.out.println("this is new title " + title);
 
             switch (correct) {
@@ -176,6 +180,12 @@ public class QuestionServlet extends HttpServlet {
             String answer3 = request.getParameter("answer3");
             String answer4 = request.getParameter("answer4");
             String correct = request.getParameter("correct");
+            if (title.equals("") || category.equals("") || answer1.equals("") || answer2.equals("") || answer3.equals("") ||
+                    answer4.equals("") || correct.equals("")) {
+                rd = request.getRequestDispatcher("questionList?page=questionList");
+                rd.forward(request, response);
+                return;
+            }
             switch (correct) {
                 case "1":
                     correct = answer1;

@@ -9,7 +9,7 @@
 <html>
 <head>
     <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-    <title>Title</title>
+    <title>Question Home</title>
     <link href="../css/templatemo_style.css" rel="stylesheet" type="text/css"/>
 </head>
 <body>

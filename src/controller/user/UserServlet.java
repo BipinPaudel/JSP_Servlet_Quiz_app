@@ -20,15 +20,15 @@ public class UserServlet extends javax.servlet.http.HttpServlet {
 
         String page = request.getParameter("page");
         //checkSession(request,response,page);
-        if(page==null){
-            page="DDD";
+        if (page == null) {
+            page = "DDD";
         }
-        if(!page.equalsIgnoreCase("login")){
+        if (!page.equalsIgnoreCase("login")) {
             System.out.println("We are here");
-            HttpSession session=request.getSession(false);
-            User user= (User) session.getAttribute("user");
+            HttpSession session = request.getSession(false);
+            User user = (User) session.getAttribute("user");
             System.out.println(user);
-            if(user==null){
+            if (user == null) {
                 System.out.println("user is null");
                 response.sendRedirect("index.jsp");
                 return;
@@ -36,7 +36,6 @@ public class UserServlet extends javax.servlet.http.HttpServlet {
             }
 
         }
-
 
 
         if (page.equalsIgnoreCase("login")) {
@@ -54,17 +53,17 @@ public class UserServlet extends javax.servlet.http.HttpServlet {
             }
         }
 
-        if(page.equalsIgnoreCase("logout")){
-            HttpSession session= request.getSession(false);
+        if (page.equalsIgnoreCase("logout")) {
+            HttpSession session = request.getSession(false);
             session.invalidate();
-            request.getRequestDispatcher("index.jsp").forward(request,response);
+            request.getRequestDispatcher("index.jsp").forward(request, response);
         }
 
-             if (page.equalsIgnoreCase("home")){
-                request.getRequestDispatcher("/user/questionHome.jsp").forward(request,response);
-            }
+        if (page.equalsIgnoreCase("home")) {
+            request.getRequestDispatcher("/user/questionHome.jsp").forward(request, response);
+        }
 
-         if (page.equalsIgnoreCase("userList")) {
+        if (page.equalsIgnoreCase("userList")) {
             List<User> wholeList = new UserService().getUserList();
             System.out.println("inside here -----------");
             System.out.println(wholeList);
@@ -72,15 +71,14 @@ public class UserServlet extends javax.servlet.http.HttpServlet {
             request.getRequestDispatcher("user/userList.jsp").forward(request, response);
         }
 
-         if (page.equalsIgnoreCase("userDelete")) {
+        if (page.equalsIgnoreCase("userDelete")) {
             String id = request.getParameter("id");
             System.out.println(Integer.valueOf(id));
             int result = new UserService().deleteUser(Integer.valueOf(id));
-            if (result==1){
+            if (result == 1) {
                 request.setAttribute("userList", new UserService().getUserList());
                 request.getRequestDispatcher("/user/userList.jsp").forward(request, response);
-            }
-            else if (result ==0){
+            } else if (result == 0) {
                 request.setAttribute("userList", new UserService().getUserList());
                 request.getRequestDispatcher("/user/userList.jsp").forward(request, response);
 
@@ -90,54 +88,59 @@ public class UserServlet extends javax.servlet.http.HttpServlet {
         }
 
 
+        if (page.equalsIgnoreCase("userAdd")) {
 
-         if(page.equalsIgnoreCase("userAdd")){
-
-            String username=request.getParameter("username");
-            String password=request.getParameter("password");
-            String role=request.getParameter("role");
-            System.out.println(username + "  " + password);
-            int result= new UserService().addUser(username,password,role);
-            if (result==1){
-                System.out.println("User successfully added----------");
+            String username = request.getParameter("username");
+            String password = request.getParameter("password");
+            String role = request.getParameter("role");
+            if (username.equals("") || password.equalsIgnoreCase("")) {
+                request.getRequestDispatcher("/userList?page=userList").forward(request, response);
+                return;
             }
-            else{
+            System.out.println(username + "  " + password);
+            int result = new UserService().addUser(username, password, role);
+            if (result == 1) {
+                System.out.println("User successfully added----------");
+            } else {
                 System.out.println("User not added successfully-------");
             }
 
-            request.getRequestDispatcher("/userList?page=userList").forward(request,response);
+            request.getRequestDispatcher("/userList?page=userList").forward(request, response);
         }
 
-         if(page.equalsIgnoreCase("addUserPage")){
-            request.getRequestDispatcher("/user/userAdd.jsp").forward(request,response);
+        if (page.equalsIgnoreCase("addUserPage")) {
+            request.getRequestDispatcher("/user/userAdd.jsp").forward(request, response);
         }
 
-         if(page.equalsIgnoreCase("userEdit")){
+        if (page.equalsIgnoreCase("userEdit")) {
 
-            int id=Integer.valueOf(request.getParameter("id"));
-            String username=request.getParameter("username");
-            String password=request.getParameter("password");
-            String role=request.getParameter("role");
-            System.out.println("hero " + id + username + password);
-            int result=new UserService().editUser(username,password,id,role);
-            if (result==1){
-                System.out.println("User successfully edited");
+            int id = Integer.valueOf(request.getParameter("id"));
+            String username = request.getParameter("username");
+            String password = request.getParameter("password");
+            String role = request.getParameter("role");
+            if (username.equals("") || password.equalsIgnoreCase("")) {
+                request.getRequestDispatcher("/userList?page=userList").forward(request, response);
+                return;
             }
-            else{
+            System.out.println("hero " + id + username + password);
+            int result = new UserService().editUser(username, password, id, role);
+            if (result == 1) {
+                System.out.println("User successfully edited");
+            } else {
                 System.out.println("User not successfully edited");
             }
 
-            request.getRequestDispatcher("/userList?page=userList").forward(request,response);
+            request.getRequestDispatcher("/userList?page=userList").forward(request, response);
         }
 
 
-         if (page.equalsIgnoreCase("editUserPage")){
+        if (page.equalsIgnoreCase("editUserPage")) {
 
-            int id= Integer.valueOf(request.getParameter("id"));
-            User user= new UserService().getSingleUser(id);
-            if(user!=null){
-                request.setAttribute("singleUser",user);
-                request.getRequestDispatcher("user/userAdd.jsp").forward(request,response);
+            int id = Integer.valueOf(request.getParameter("id"));
+            User user = new UserService().getSingleUser(id);
+            if (user != null) {
+                request.setAttribute("singleUser", user);
+                request.getRequestDispatcher("user/userAdd.jsp").forward(request, response);
             }
 
         }
@@ -149,23 +152,23 @@ public class UserServlet extends javax.servlet.http.HttpServlet {
     }
 
 
-    private void checkSession(HttpServletRequest request, HttpServletResponse response,String page) throws ServletException, IOException{
-        if(page==null){
-            page="DDD";
-        }
-        if(!page.equalsIgnoreCase("login")){
-            System.out.println("We are here");
-            HttpSession session=request.getSession(false);
-            User user= (User) session.getAttribute("user");
-            System.out.println(user);
-            if(user==null){
-                System.out.println("user is null");
-                response.sendRedirect("index.jsp");
-                return;
-
-            }
-
-        }
-
-    }
+//    private void checkSession(HttpServletRequest request, HttpServletResponse response, String page) throws ServletException, IOException {
+//        if (page == null) {
+//            page = "DDD";
+//        }
+//        if (!page.equalsIgnoreCase("login")) {
+//            System.out.println("We are here");
+//            HttpSession session = request.getSession(false);
+//            User user = (User) session.getAttribute("user");
+//            System.out.println(user);
+//            if (user == null) {
+//                System.out.println("user is null");
+//                response.sendRedirect("index.jsp");
+//                return;
+//
+//            }
+//
+//        }
+//
+//    }
 }

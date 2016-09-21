@@ -27,9 +27,9 @@
 
         <jsp:include page="../includes/header.jsp"></jsp:include>
         <!-- end of templatemo_menu -->
-<div id="test">
-    <input id="ans" type="radio" name="correct" value="1"> Answer1
-</div>
+        <div id="test">
+            <input id="ans" type="radio" name="correct" value="1"> Answer1
+        </div>
         <div id="templatemo_content_wrapper">
 
 
@@ -47,31 +47,37 @@
                             <table>
                                 <input type="hidden" name="id" value="${question.id}">
                                 <tr>
-                                    <td>Title</td><td><input type="text" name="title" value="${question.title}"></td>
+                                    <td>Title</td>
+                                    <td><input type="text" name="title" value="${question.title}"></td>
                                 </tr>
 
                                 <tr>
-                                    <td>Category</td><td><input type="text" name="category" value="${question.category}"></td>
-                                </tr>
-
-
-                                <tr>
-                                    <td>Answer1</td><td><input type="text" name="answer1" value="${question.answer1}"></td>
+                                    <td>Category</td>
+                                    <td><input type="text" name="category" value="${question.category}"></td>
                                 </tr>
 
 
                                 <tr>
-                                    <td>Answer2 </td><td><input type="text" name="answer2" value="${question.answer2}"></td>
+                                    <td>Answer1</td>
+                                    <td><input type="text" name="answer1" value="${question.answer1}"></td>
                                 </tr>
 
 
                                 <tr>
-                                    <td>Answer3</td><td><input type="text" name="answer3" value="${question.answer3}"></td>
+                                    <td>Answer2</td>
+                                    <td><input type="text" name="answer2" value="${question.answer2}"></td>
                                 </tr>
 
 
                                 <tr>
-                                    <td>Answer4</td><td><input type="text" name="answer4" value="${question.answer4}"></td>
+                                    <td>Answer3</td>
+                                    <td><input type="text" name="answer3" value="${question.answer3}"></td>
+                                </tr>
+
+
+                                <tr>
+                                    <td>Answer4</td>
+                                    <td><input type="text" name="answer4" value="${question.answer4}"></td>
                                 </tr>
 
 
@@ -100,39 +106,47 @@
                             <input type="hidden" name="page" value="questionAdd">
                             <table>
                                 <tr>
-                                    <td>Title</td><td><input type="text" name="title"></td>
+                                    <td>Title</td>
+                                    <td><input type="text" name="title"></td>
                                 </tr>
 
                                 <tr>
-                                    <td>Category</td><td><input type="text" name="category"></td>
-                                </tr>
-
-
-                                <tr>
-                                    <td>Answer1</td><td><input type="text" name="answer1"></td>
+                                    <td>Category</td>
+                                    <td><input type="text" name="category"></td>
                                 </tr>
 
 
                                 <tr>
-                                    <td>Answer2 </td><td><input type="text" name="answer2"></td>
+                                    <td>Answer1</td>
+                                    <td><input type="text" name="answer1"></td>
                                 </tr>
 
 
                                 <tr>
-                                    <td>Answer3</td><td><input type="text" name="answer3"></td>
+                                    <td>Answer2</td>
+                                    <td><input type="text" name="answer2"></td>
                                 </tr>
 
 
                                 <tr>
-                                    <td>Answer4</td><td><input type="text" name="answer4"></td>
+                                    <td>Answer3</td>
+                                    <td><input type="text" name="answer3"></td>
                                 </tr>
 
 
                                 <tr>
-                                    <td>Correct</td><td><input type="radio" name="correct" value="1" checked> Answer1
-                                    <input type="radio" name="correct" value="2"> Answer2
-                                    <input type="radio" name="correct" value="3"> Answer3
-                                    <input type="radio" name="correct" value="4"> Answer4<td>
+                                    <td>Answer4</td>
+                                    <td><input type="text" name="answer4"></td>
+                                </tr>
+
+
+                                <tr>
+                                    <td>Correct</td>
+                                    <td><input type="radio" name="correct" value="1" checked> Answer1
+                                        <input type="radio" name="correct" value="2"> Answer2
+                                        <input type="radio" name="correct" value="3"> Answer3
+                                        <input type="radio" name="correct" value="4"> Answer4
+                                    <td>
                                 </tr>
 
 
@@ -159,22 +173,22 @@
 
 </div> <!-- end of templatemo_wrapper_outter -->
 <c:if test="${correctIndex!=null}">
-<script type="text/javascript">
-    var corr=${correctIndex};
-    if (corr==1){
-        document.getElementById("answer1").checked=true;
-    }
-    else if (corr==2){
-        document.getElementById("answer2").checked=true;
-    }
-    else if (corr==3){
-        document.getElementById("answer3").checked=true;
-    }
-    else if (corr==4){
-        document.getElementById("answer4").checked=true;
-    }
-</script>
-    </c:if>
+    <script type="text/javascript">
+        var corr =${correctIndex};
+        if (corr == 1) {
+            document.getElementById("answer1").checked = true;
+        }
+        else if (corr == 2) {
+            document.getElementById("answer2").checked = true;
+        }
+        else if (corr == 3) {
+            document.getElementById("answer3").checked = true;
+        }
+        else if (corr == 4) {
+            document.getElementById("answer4").checked = true;
+        }
+    </script>
+</c:if>
 
 </body>
 </html>
