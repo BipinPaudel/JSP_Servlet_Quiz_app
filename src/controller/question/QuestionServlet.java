@@ -2,6 +2,7 @@ package controller.question;
 
 import domains.question.Question;
 import domains.user.User;
+import services.group.GroupService;
 import services.question.QuestionService;
 import services.user.UserService;
 
@@ -15,6 +16,7 @@ import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.PreparedStatement;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -64,7 +66,9 @@ public class QuestionServlet extends HttpServlet {
         } else if (page.equalsIgnoreCase("addQuestionPage")) {
             rd = request.getRequestDispatcher("/question/questionAdd.jsp");
             rd.forward(request, response);
-        } else if (page.equalsIgnoreCase("playQuiz")) {
+        }
+
+        else if (page.equalsIgnoreCase("playQuiz")) {
 
             int id = Integer.valueOf(request.getParameter("id"));
             String userAnswer = request.getParameter("answer");
@@ -89,13 +93,107 @@ public class QuestionServlet extends HttpServlet {
 
             rd.forward(request, response);
 
+
         } else if (page.equalsIgnoreCase("viewQuestion")) {
             int id = Integer.valueOf(request.getParameter("id"));
             Question singleQuestion = new QuestionService().getSingleQuestion(id);
             request.setAttribute("singleQuestion", singleQuestion);
             rd = request.getRequestDispatcher("/question/viewQuestion.jsp");
             rd.forward(request, response);
-        } else if (page.equalsIgnoreCase("questionDelete")) {
+        }
+
+
+
+        else if (page.equalsIgnoreCase("questionAmountPage")){
+
+//            Question singleQuestion=new QuestionService().getRandomQuestion();
+//            request.setAttribute("singleQuestion",singleQuestion);
+            rd=request.getRequestDispatcher("/question/askQuestionNo.jsp");
+            rd.forward(request,response);
+        }
+
+        else if (page.equalsIgnoreCase("questionAmount")){
+            int id= Integer.valueOf(request.getParameter("questionAmount"));
+            HttpSession session=request.getSession(false);
+            session.setAttribute("questionAmount",id);
+            ArrayList<Integer> groupsId=new GroupService().getAllGroupId();
+            session.setAttribute("currentGroup",groupsId.get(0));
+
+
+            if (id>0){
+                Question singleQuestion=new QuestionService().getSingleQuestionForFirst();
+                request.setAttribute("currentGroup",new GroupService().groupNameFromId((int) session.getAttribute("currentGroup")));
+                request.setAttribute("singleQuestion",singleQuestion);
+
+                rd=request.getRequestDispatcher("/question/viewQuestion.jsp");
+                rd.forward(request,response);
+            }
+
+        }
+
+        else if (page.equalsIgnoreCase("storeAnswer")){
+            HttpSession session=request.getSession(false);
+            String answer= request.getParameter("answer");
+            int question_id=Integer.parseInt(request.getParameter("id"));
+            int group_id=(int)session.getAttribute("currentGroup");
+
+            ArrayList<Integer> groupsId=new GroupService().getAllGroupId();
+            System.out.println("=============" +groupsId);
+
+            int result= new QuestionService().storeGroupAnswer(answer,question_id,group_id);
+            if (result==1){
+                System.out.println("stored");
+            }
+            else{
+                System.out.println("not stored");
+            }
+
+
+            int totalQuestions=new QuestionService().getTotalQuestions();
+            int totalFromSession= (int) session.getAttribute("questionAmount");
+            System.out.println("total question from servlet---------" + totalQuestions + totalFromSession);
+            if (totalQuestions==totalFromSession){
+
+                
+
+                rd=request.getRequestDispatcher("/question/quizResult.jsp");
+                rd.forward(request,response);
+            }
+
+            else if (totalQuestions < totalFromSession ){
+                int indexOfGroupId=groupsId.indexOf(group_id);   //0 1 2 3
+                System.out.println("iiiiiiiiiiii" + indexOfGroupId);
+                int indexOfNextGroupId;
+
+                if (indexOfGroupId==3){
+                    indexOfNextGroupId=0;
+                }
+                else{
+                    indexOfNextGroupId=indexOfGroupId+1; //1 2 3 0
+                }
+
+
+                session.setAttribute("currentGroup",groupsId.get(indexOfNextGroupId));
+
+                ArrayList<Integer> answeredQuestionId= new QuestionService().getAnsweredQuestionId();
+                Question singleQuestion= new QuestionService().getRandomQuestion(answeredQuestionId);
+                String groupNameFromId=new GroupService().groupNameFromId(groupsId.get(indexOfNextGroupId));
+                request.setAttribute("currentGroup",groupNameFromId);
+
+
+                request.setAttribute("singleQuestion",singleQuestion);
+
+                rd=request.getRequestDispatcher("/question/viewQuestion.jsp");
+                rd.forward(request,response);
+            }
+
+
+        }
+
+
+
+
+        else if (page.equalsIgnoreCase("questionDelete")) {
             int id = Integer.valueOf(request.getParameter("id"));
             int result = new QuestionService().deleteQuestion(id);
             if (result == 1) {

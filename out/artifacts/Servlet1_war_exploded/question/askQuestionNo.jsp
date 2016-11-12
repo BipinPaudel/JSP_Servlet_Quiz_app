@@ -1,8 +1,8 @@
 <%--
   Created by IntelliJ IDEA.
   User: bips
-  Date: 9/6/16
-  Time: 9:07 AM
+  Date: 11/12/16
+  Time: 5:04 PM
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
@@ -15,18 +15,7 @@
 </head>
 <body>
 
-<%--<c:if test="${ok!=null}">--%>
-    <%--<script type="text/javascript">--%>
-        <%--var num=${ok};--%>
-        <%--if ( num== 1){--%>
-            <%--alert("Correct answer");--%>
-        <%--}--%>
-        <%--else if(num ==0){--%>
-            <%--alert("Incorrect answer");--%>
-        <%--}--%>
-    <%--</script>--%>
 
-<%--</c:if>--%>
 <div id="templatemo_wrapper_outter">
 
     <div id="templatemo_wrapper_inner">
@@ -62,18 +51,17 @@
             <div id="templatemo_content">
 
                 <div class="content_section">
+                    <h1> Select no. of question for each group.</h1>
                 </div>
-                <h1> ${currentGroup}</h1>
-                <h2>${singleQuestion.title}</h2> <br>
 
-                <ul>
-                    <li><h3><a href="playQuiz?page=storeAnswer&id=${singleQuestion.id}&answer=${singleQuestion.answer1}"> ${singleQuestion.answer1}</a></h3></li>
-                    <li><h3><a href="playQuiz?page=storeAnswer&id=${singleQuestion.id}&answer=${singleQuestion.answer2}"> ${singleQuestion.answer2}</a></h3></li>
-                    <li><h3><a href="playQuiz?page=storeAnswer&id=${singleQuestion.id}&answer=${singleQuestion.answer3}"> ${singleQuestion.answer3}</a></h3></li>
-                    <li><h3><a href="playQuiz?page=storeAnswer&id=${singleQuestion.id}&answer=${singleQuestion.answer4}"> ${singleQuestion.answer4}</a></h3></li>
-                </ul>
 
-                <h2> Category :  ${singleQuestion.category}</h2>
+                <div id="loginDiv">
+                    <form method="post" action="questionAmount">
+                        <input type="hidden" name="page" value="questionAmount">
+                        <input type="number" name="questionAmount">
+                        <input type="submit" value="Add amount">
+                    </form>
+                </div>
 
 
             </div>

@@ -47,6 +47,7 @@ public class UserServlet extends javax.servlet.http.HttpServlet {
                 HttpSession session = request.getSession(false);
                 session.setAttribute("user", user);
                 request.setAttribute("message", "Login success");
+
                 request.getRequestDispatcher("questionHome?page=questionHome").forward(request, response);
             } else {
                 request.getRequestDispatcher("index.jsp").forward(request, response);
@@ -64,6 +65,7 @@ public class UserServlet extends javax.servlet.http.HttpServlet {
         }
 
         if (page.equalsIgnoreCase("userList")) {
+
             List<User> wholeList = new UserService().getUserList();
             System.out.println("inside here -----------");
             System.out.println(wholeList);

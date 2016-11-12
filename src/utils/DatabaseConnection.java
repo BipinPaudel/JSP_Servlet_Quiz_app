@@ -15,7 +15,7 @@ public class DatabaseConnection {
     String username="root";
     String password="maiden";
 
-    Connection connection = null;
+    public static Connection connection = null;
 
     public DatabaseConnection(){
         try{
@@ -23,6 +23,7 @@ public class DatabaseConnection {
 
                 Class.forName("com.mysql.jdbc.Driver");
                 connection= DriverManager.getConnection(url,username,password);
+
             } catch (ClassNotFoundException e) {
                 e.printStackTrace();
             }
@@ -33,6 +34,9 @@ public class DatabaseConnection {
         }
     }
 
+    public Connection getConnection(){
+        return connection;
+    }
     public PreparedStatement getPreparedStatement(String query){
         PreparedStatement pstm=null;
 

@@ -1,10 +1,11 @@
 <%--
   Created by IntelliJ IDEA.
   User: bips
-  Date: 9/6/16
-  Time: 9:07 AM
+  Date: 11/12/16
+  Time: 7:46 PM
   To change this template use File | Settings | File Templates.
 --%>
+
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
@@ -16,15 +17,15 @@
 <body>
 
 <%--<c:if test="${ok!=null}">--%>
-    <%--<script type="text/javascript">--%>
-        <%--var num=${ok};--%>
-        <%--if ( num== 1){--%>
-            <%--alert("Correct answer");--%>
-        <%--}--%>
-        <%--else if(num ==0){--%>
-            <%--alert("Incorrect answer");--%>
-        <%--}--%>
-    <%--</script>--%>
+<%--<script type="text/javascript">--%>
+<%--var num=${ok};--%>
+<%--if ( num== 1){--%>
+<%--alert("Correct answer");--%>
+<%--}--%>
+<%--else if(num ==0){--%>
+<%--alert("Incorrect answer");--%>
+<%--}--%>
+<%--</script>--%>
 
 <%--</c:if>--%>
 <div id="templatemo_wrapper_outter">
@@ -63,17 +64,10 @@
 
                 <div class="content_section">
                 </div>
-                <h1> ${currentGroup}</h1>
-                <h2>${singleQuestion.title}</h2> <br>
 
-                <ul>
-                    <li><h3><a href="playQuiz?page=storeAnswer&id=${singleQuestion.id}&answer=${singleQuestion.answer1}"> ${singleQuestion.answer1}</a></h3></li>
-                    <li><h3><a href="playQuiz?page=storeAnswer&id=${singleQuestion.id}&answer=${singleQuestion.answer2}"> ${singleQuestion.answer2}</a></h3></li>
-                    <li><h3><a href="playQuiz?page=storeAnswer&id=${singleQuestion.id}&answer=${singleQuestion.answer3}"> ${singleQuestion.answer3}</a></h3></li>
-                    <li><h3><a href="playQuiz?page=storeAnswer&id=${singleQuestion.id}&answer=${singleQuestion.answer4}"> ${singleQuestion.answer4}</a></h3></li>
-                </ul>
 
-                <h2> Category :  ${singleQuestion.category}</h2>
+                <h1>Quiz finished. <br> Here is your result </h1>
+
 
 
             </div>
@@ -94,3 +88,4 @@
 
 </body>
 </html>
+

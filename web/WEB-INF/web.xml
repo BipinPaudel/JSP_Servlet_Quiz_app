@@ -102,8 +102,17 @@
         <url-pattern>/playQuiz</url-pattern>
     </servlet-mapping>
 
+    
 
+    <servlet-mapping>
+        <servlet-name>QuestionServlet</servlet-name>
+        <url-pattern>/randomQuestion</url-pattern>
+    </servlet-mapping>
 
+    <servlet-mapping>
+        <servlet-name>QuestionServlet</servlet-name>
+        <url-pattern>/questionAmount</url-pattern>
+    </servlet-mapping>
 
 
 </web-app>
