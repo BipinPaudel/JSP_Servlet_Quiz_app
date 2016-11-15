@@ -154,7 +154,7 @@ public class QuestionServlet extends HttpServlet {
             System.out.println("total question from servlet---------" + totalQuestions + totalFromSession);
             if (totalQuestions==totalFromSession){
 
-                
+
 
                 rd=request.getRequestDispatcher("/question/quizResult.jsp");
                 rd.forward(request,response);
